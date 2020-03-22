@@ -50,4 +50,63 @@ function createList() {
       listItems.push(listItem);
       draggable_list.appendChild(listItem);
     });
+  // 事件监听函数
+  addEventListeners();
+}
+
+// 拖拽函数
+function dragStart() {
+  //   console.log("Envent:", "dragStart");
+  dragStartIndex = this.closest("li").getAttribute("data-index");
+  //   console.log(dragStartIndex);
+}
+
+function dragEnter() {
+  //   console.log("Envent:", "dragEnter");
+  this.classList.add("over");
+}
+
+function dragOver(e) {
+  //   console.log("Envent:", "dragOver");
+  e.preventDefault();
+}
+
+function dragLeave() {
+  //   console.log("Envent:", "dragLeave");
+  this.classList.remove("over");
+}
+
+function dragDrop() {
+  //   console.log("Envent:", "dragStart");
+  const dragEndIndex = this.getAttribute("data-index");
+  swapItems(dragStartIndex, dragEndIndex);
+
+  this.classList.remove("over");
+}
+
+// 调换排名
+function swapItems(fromIndex, toIndex) {
+  const itemOne = listItems[fromIndex].querySelector(".draggable");
+  const itemTwo = listItems[toIndex].querySelector(".draggable");
+
+  //   console.log(itemOne, itemTwo);
+  listItems[fromIndex].appendChild(itemTwo);
+  listItems[toIndex].appendChild(itemOne);
+}
+
+// 创建事件监听函数
+function addEventListeners() {
+  const draggables = document.querySelectorAll(".draggable");
+  const dragListItems = document.querySelectorAll(".draggable-list li");
+
+  draggables.forEach(draggable => {
+    draggable.addEventListener("dragstart", dragStart);
+  });
+
+  dragListItems.forEach(item => {
+    item.addEventListener("dragenter", dragEnter);
+    item.addEventListener("dragover", dragOver);
+    item.addEventListener("dragleave", dragLeave);
+    item.addEventListener("drop", dragDrop);
+  });
 }
