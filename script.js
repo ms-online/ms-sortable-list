@@ -21,13 +21,24 @@ let dragStartIndex;
 
 createList();
 
+// const numbers = [1, 3, 9, 10, 160, 302];
+// console.log(
+//   numbers.sort(function(a, b) {
+//     return a - b;
+//   })
+// );
 // 创建createList函数，将li插入到DOM节点中
 function createList() {
-  [...richestPeople].forEach((person, index) => {
-    const listItem = document.createElement("li");
-    listItem.setAttribute("data-index", index);
+  [...richestPeople]
+    .map(a => ({ value: a, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(a => a.value)
+    .forEach((person, index) => {
+      //   console.log(person);
+      const listItem = document.createElement("li");
+      listItem.setAttribute("data-index", index);
 
-    listItem.innerHTML = `
+      listItem.innerHTML = `
         <span class="number">${index + 1}</span>
         <div class ="draggable" draggable ="true">
         <p class="person-name">${person}</p>
@@ -35,7 +46,7 @@ function createList() {
         </div>
         `;
 
-    listItems.push(listItem);
-    draggable_list.appendChild(listItem);
-  });
+      listItems.push(listItem);
+      draggable_list.appendChild(listItem);
+    });
 }
