@@ -94,6 +94,20 @@ function swapItems(fromIndex, toIndex) {
   listItems[toIndex].appendChild(itemOne);
 }
 
+// 查验排序
+function checkOrder() {
+  listItems.forEach((listItem, index) => {
+    const personName = listItem.querySelector(".draggable").innerText.trim();
+
+    if (personName !== richestPeople[index]) {
+      listItem.classList.add("wrong");
+    } else {
+      listItem.classList.remove("wrong");
+      listItem.classList.add("right");
+    }
+  });
+}
+
 // 创建事件监听函数
 function addEventListeners() {
   const draggables = document.querySelectorAll(".draggable");
@@ -110,3 +124,5 @@ function addEventListeners() {
     item.addEventListener("drop", dragDrop);
   });
 }
+
+check.addEventListener("click", checkOrder);
