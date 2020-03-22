@@ -36,6 +36,7 @@ function createList() {
     .forEach((person, index) => {
       //   console.log(person);
       const listItem = document.createElement("li");
+
       listItem.setAttribute("data-index", index);
 
       listItem.innerHTML = `
